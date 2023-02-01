@@ -15,4 +15,9 @@ $(window).on("load", function() {
 
     window.$owm = window.$owm || {};
     window.$owm.resizePageHeight = resize;
+
+    $("#totop").click(function() {
+        $("html").stop().animate({ scrollTop: 0 }, 500, 'swing');
+        return false;
+    });
 });

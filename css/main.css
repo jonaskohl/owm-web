@@ -252,7 +252,7 @@ ul {
     height: 16px;
     background-image: url("../img/owm_web_github.png");
     vertical-align: middle;
-    margin-top: 16px;
+    /* margin-top: 16px; */
 }
 #github-link:hover {
     background-position: 0 -16px;
@@ -329,6 +329,36 @@ hr {
     background-color: #a33ee2;
     color: #fff;
 }
+#totop-wrapper {
+    position: absolute;
+    left: 0;
+    top: -1px;
+    right: 0;
+    text-align: center;
+    line-height: 1;
+    z-index: 10;
+}
+#totop {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 23px;
+    text-indent: -9999px;
+    /* background-image: url("../img/owm_web_totop_shadow.png"); */
+}
+#totop-gfx {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80px;
+    height: 40px;
+    display: inline-block;
+    pointer-events: none;
+    background-image: url("../img/owm_web_totopbtn.png");
+}
+#totop:hover #totop-gfx {
+    background-position: 0 -40px;
+}
 @media (max-width: 640px) {
     #nav {
         background: #5500a5;
@@ -394,11 +424,11 @@ hr {
         height: 96px;
     }
 }
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
     :root {
         filter: invert(1) hue-rotate(180deg);
     }
     img, .shadow, #download-link {
         filter: invert(1) hue-rotate(180deg);
     }
-}
+} */

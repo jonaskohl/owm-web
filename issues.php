@@ -26,27 +26,6 @@ if (is_file(CACHE_FILE) && time() - filemtime(CACHE_FILE) < 15*60) {
     file_put_contents(CACHE_FILE, $contents);
 }
 
-function adjustBrightness($hexCode, $adjustPercent) {
-    $hexCode = ltrim($hexCode, '#');
-    if (strlen($hexCode) == 3)
-        $hexCode = $hexCode[0] . $hexCode[0] . $hexCode[1] . $hexCode[1] . $hexCode[2] . $hexCode[2];
-    $hexCode = array_map('hexdec', str_split($hexCode, 2));
-    foreach ($hexCode as & $color) {
-        $adjustableLimit = $adjustPercent < 0 ? $color : 255 - $color;
-        $adjustAmount = ceil($adjustableLimit * $adjustPercent);
-        $color = str_pad(dechex($color + $adjustAmount), 2, '0', STR_PAD_LEFT);
-    }
-    return implode($hexCode);
-}
-
-function getForegroundColor($rgbHex) {
-    $r = hexdec(substr($rgbHex, 0, 2)) / 255;
-    $g = hexdec(substr($rgbHex, 2, 2)) / 255;
-    $b = hexdec(substr($rgbHex, 4, 2)) / 255;
-    $l = (.2126 * $r + .7152 * $g + .0722 * $b);
-    return $l > 0.5 ? "black" : "white";
-}
-
 $issues = ($data["message"] ?? null) == "Not Found" ? [] : $data;
 
 echo $twig->render("issues.twig", [

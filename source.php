@@ -26,11 +26,6 @@ if (is_file(CACHE_FILE) && time() - filemtime(CACHE_FILE) < 15*60) {
     file_put_contents(CACHE_FILE, $contents);
 }
 
-function truncate_string($str, $len, $ellipsis = "...") {
-    if (mb_strlen($str) < $len) return $str;
-    return mb_substr($str, 0, $len) . $ellipsis;
-}
-
 $commits = ($data["message"] ?? null) == "Not Found" ? [] : $data;
 
 echo $twig->render("source.twig", [
