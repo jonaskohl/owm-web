@@ -74,6 +74,12 @@ a:hover {
 #nav a.current:hover {
     color: #ff8;
 }
+.nav-spacer {
+    display: inline-block;
+    width: 0;
+    height: 21px;
+    line-height: 32px;
+}
 #nav button {
     display: none;
     -webkit-appearance: none;
@@ -125,12 +131,16 @@ a:hover {
 #shadow { top: 112px; }
 #footer-shadow { top: 0; }
 #main {
-    overflow: hidden;
     margin: 0;
-    padding-top: 24px;
-    position: relative;
     box-sizing: border-box;
-    background: #fff url("../img/owm_web_bg.png") repeat-y center;
+    background: #fff url("../img/owm_web_pattern.png");
+}
+#main>.wrapper {
+    padding-top: 24px;
+    background: url("../img/owm_web_fade.png") repeat-y top center;
+    position: relative;
+    overflow: hidden;
+    height: 100%;
 }
 #main-screenshot {
     display: block;
@@ -250,6 +260,47 @@ ul {
     border: 0;
     z-index: 19;
 }
+.box {
+    background: #fff url("../img/owm_web_smallshadow.png") repeat-x;
+    border: 1px solid #ccc;
+    margin: 8px 0;
+    padding: 8px;
+    position: relative;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    overflow: hidden;
+    /* For IE8 */
+    behavior: url("css/pie/PIE.php");
+}
+/* .release-body>ul {
+    margin: 0;
+    padding: 0 0 0 1em;
+} */
+hr {
+    border: 0;
+    height: 1px;
+    background: #8000d1;
+    margin: 1.5em 0;
+}
+.issue-label-list {
+    margin-left: 4px;
+    float: right;
+}
+.issue-label {
+    background-image: url("../img/owm_web_gradient.png");
+    background-repeat: repeat-x;
+    display: inline-block;
+    padding: 2px 4px;
+    border: 1px solid;
+    position: relative;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+    overflow: hidden;
+    /* For IE8 */
+    behavior: url("css/pie/PIE.php");
+}
 @media (max-width: 640px) {
     #nav {
         background: #5500a5;
@@ -301,8 +352,17 @@ ul {
     #footer {
         padding: 16px;
         line-height: 1.5;
+        height: auto;
+        background-size: 100% 100%;
     }
     #github-link {
         margin-top: 0;
+    }
+    .nav-spacer {
+        display: none;
+    }
+    #forkme-container img {
+        width: 96px;
+        height: 96px;
     }
 }

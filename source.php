@@ -1,3 +1,42 @@
+<?php
+
+require_once __DIR__ . "/vendor/autoload.php";
+
+use Symfony\Component\Dotenv\Dotenv;
+
+$dotenv = new Dotenv();
+$dotenv->load(__DIR__.'/.env');
+
+$url = "https://api.github.com/repos/".urlencode($_ENV["REPO_AUTHOR"])."/".urlencode($_ENV["REPO_NAME"])."/commits";
+
+const CACHE_FILE = ".cache/commits";
+
+$opts = [
+    "http" => [
+        "ignore_errors" => true,
+        "method" => "GET",
+        "header" => "User-Agent: OWM Website\r\nAuthorization: token " . $_ENV["GITHUB_TOKEN"]
+    ]
+];
+
+$context = stream_context_create($opts);
+
+if (is_file(CACHE_FILE) && time() - filemtime(CACHE_FILE) < 15*60) {
+    $data = json_decode(file_get_contents(CACHE_FILE));
+} else {
+    $contents = file_get_contents($url, false, $context);
+    $data = json_decode($contents);
+    file_put_contents(CACHE_FILE, $contents);
+}
+
+function truncate_string($str, $len, $ellipsis = "...") {
+    if (mb_strlen($str) < $len) return $str;
+    return mb_substr($str, 0, $len) . $ellipsis;
+}
+
+$commits = ($data["message"] ?? null) == "Not Found" ? [] : $data;
+
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
@@ -7,7 +46,7 @@
     <meta name="theme-color" content="#8000d1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Download &ndash; Open Wii Manager</title>
+    <title>Source code &ndash; Open Wii Manager</title>
     <link rel="shortcut icon" href="img/owm.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/nunito.css" type="text/css" />
     <link rel="stylesheet" href="css/normalize.css" type="text/css" />
@@ -25,30 +64,20 @@
         <div class="wrapper">
             <button onclick="$('#nav').toggleClass('shown')"><span>Menu</span><i class="menu-icon"></i></button>
             <a href="index.html">Home</a>
-            <a href="download.html" class="current">Download</a>
-            <a href="source.html">Source code</a>
-            <a href="issues.html">Issues</a>
+            <a href="download.php">Download</a>
+            <a href="source.php" class="current">Source code</a>
+            <a href="issues.php">Issues</a>
             <a href="wiki.html">Wiki</a>
         </div>
     </div>
     <div id="shadow" class="shadow"></div>
     <div id="main">
         <div class="wrapper">
-            <h2>Latest version</h2>
-            <p>The latest version of Open Wii Manager can be obtained below!</p>
-            <div class="alert alert-info">
-                <img src="img/info.png" alt="" width="16" height="16" />
-                <span><strong>Note:</strong> Open Wii Manager requires the <a href="https://dotnet.microsoft.com/en-us/download/dotnet/6.0" target="_blank" rel="noreferrer nofollow">.NET 6 Desktop Runtime</a>.</span>
-            </div>
-            <p style="float:left;margin:8px"><a href="https://github.com/jonaskohl/OpenWiiManager/releases/latest/download/owm-setup.exe" id="download-link">Download now</a></p>
-            <h3>System requirements</h3>
-            <ul style="list-style-position:inside;margin:0">
-                <li>Windows 7 Service Pack 1 or newer</li>
-                <li>2 GB RAM or more</li>
-                <li>64 MB available hard disk space</li>
-            </ul>
-            <div style="clear: both;"></div>
-            <h2>Older versions</h2>
+            <h2>Commit history</h2>
+<?php foreach ($commits as $commit): ?>
+            <h3><a href="<?= htmlentities($commit->html_url, ENT_XHTML) ?>"><?= htmlentities(truncate_string($commit->commit->message, 80), ENT_XHTML) ?></a></h3>
+            <p>Committed on <?= htmlentities($commit->commit->committer->date, ENT_XHTML) ?> by <a href="<?= htmlentities($commit->author->html_url, ENT_XHTML) ?>"><?= htmlentities($commit->commit->author->name, ENT_XHTML) ?></a></p>
+<?php endforeach; ?>
         </div>
     </div>
     <div id="footer">

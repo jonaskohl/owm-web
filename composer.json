@@ -1,0 +1,6 @@
+{
+    "require": {
+        "symfony/dotenv": "^6.2",
+        "league/commonmark": "^2.3"
+    }
+}
