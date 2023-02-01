@@ -1,5 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
@@ -7,7 +6,7 @@
     <meta name="theme-color" content="#8000d1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Open Wii Manager</title>
+    <title>{% if title %}{{ title }} &ndash; {% endif %}Open Wii Manager</title>
     <link rel="shortcut icon" href="img/owm.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/nunito.css" type="text/css" />
     <link rel="stylesheet" href="css/normalize.css" type="text/css" />
@@ -24,21 +23,19 @@
     <div id="nav">
         <div class="wrapper">
             <button onclick="$('#nav').toggleClass('shown')"><span>Menu</span><i class="menu-icon"></i></button>
-            <a href="index.html" class="current">Home</a>
-            <a href="download.php">Download</a>
-            <a href="source.php">Source code</a>
-            <a href="issues.php">Issues</a>
-            <a href="wiki.html">Wiki</a>
+            {% set hasActiveNav = false %}
+            <a{% if activeNav == "index" %}{% set hasActiveNav = true %} class="current"{% endif %} href="index.php">Home</a>
+            <a{% if activeNav == "download" %}{% set hasActiveNav = true %} class="current"{% endif %} href="download.php">Download</a>
+            <a{% if activeNav == "source" %}{% set hasActiveNav = true %} class="current"{% endif %} href="source.php">Source code</a>
+            <a{% if activeNav == "issues" %}{% set hasActiveNav = true %} class="current"{% endif %} href="issues.php">Issues</a>
+            <a{% if activeNav == "wiki" %}{% set hasActiveNav = true %} class="current"{% endif %} href="wiki.php">Wiki</a>
+            {% if not hasActiveNav %}<span class="nav-spacer"></span>{% endif %}
         </div>
     </div>
     <div id="shadow" class="shadow"></div>
     <div id="main">
         <div class="wrapper">
-            <p id="intro">Open Wii Manager is the <em>best way to manage your Wii game backups</em>!</p>
-            <img id="main-screenshot" src="img/owm_screenshot2.png" alt="Screenshot of the main window of Open Wii Manager running on Windows 7 and showing a list of wii games" width="1086" height="625" />
-            <p>
-                <a href="download.html" id="download-link">Download now</a>
-            </p>
+{% block body %}{% endblock %}
         </div>
     </div>
     <div id="footer">

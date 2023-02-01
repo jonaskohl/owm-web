@@ -1,0 +1,25 @@
+{% set title = "Source code" %}
+{% set activeNav = "source" %}
+{% extends "_layout.twig" %}
+{% block body %}
+<p style="float:right;margin:0">
+    <a class="button" href="https://github.com/{{ getenv("REPO_AUTHOR")|url_encode }}/{{ getenv("REPO_NAME")|url_encode }}/archive/refs/heads/{{ getenv("REPO_BRANCH")|url_encode }}.tar.gz">Download archive</a>
+    <a class="button" href="#" onclick="$('#cloneUrl').slideToggle('fast', function(){$owm.resizePageHeight()});return false">Clone repository</a>
+</p>
+<h2>Source code</h2>
+<div style="clear:both"></div>
+<div id="cloneUrl" class="box" style="display:none">
+    <div class="code-wrapper">
+        <pre>{#
+#}git clone https://github.com/{{ getenv("REPO_AUTHOR")|url_encode }}/{{ getenv("REPO_NAME")|url_encode }}.git
+cd {{ getenv("REPO_NAME") }}
+git checkout {{ getenv("REPO_BRANCH") }}{#
+#}</pre>
+    </div>
+</div>
+<h2>Commit history</h2>
+{% for commit in commits %}
+    <h3><a href="{{ commit.html_url }}">{{ commit.commit.message }}</a></h3>    
+    <p>Committed on {{ commit.commit.committer.date }} by <a href="{{ commit.author.html_url }}">{{ commit.commit.author.name }}</a></p>
+{% endfor %}
+{% endblock %}

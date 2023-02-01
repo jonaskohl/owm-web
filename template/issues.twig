@@ -1,0 +1,20 @@
+{% set title = "Issues" %}
+{% set activeNav = "issues" %}
+{% extends "_layout.twig" %}
+{% block body %}
+<h2>Open issues</h2>
+{% for issue in issues %}
+    <div class="box">
+        <h3><a href="{{ issue.html_url }}">{{ issue.title }}</a></h3>
+        <div class="issue-label-list">
+            {% for label in issue.labels %}
+                {# <div class="issue-label" style="background-color:#<?= htmlentities(adjustBrightness($label->color, 0.5), ENT_XHTML) ?>;color:<?= getForegroundColor(adjustBrightness($label->color, 0.5)) ?>;border-color:#<?= htmlentities(adjustBrightness($label->color, -0.5), ENT_XHTML) ?>"><?= htmlentities(ucwords(str_replace("-", " ", $label->name)), ENT_XHTML) ?></div> #}
+                <div class="issue-label">{{ label.name }}</div>
+            {% endfor %}
+        </div>
+        <p style="margin:0">Opened on {{ issue.created_at }} by <a href="{{ issue.user.html_url }}">{{ issue.user.login }}</a></p>
+    </div>
+{% else %}
+    <div class="empty-state">There are currently no open issues</div>
+{% endfor %}
+{% endblock %}
