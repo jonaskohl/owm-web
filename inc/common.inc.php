@@ -47,4 +47,13 @@ $twig->addFunction(
     })
 );
 $twig->addFilter(new \Twig\TwigFilter('ucwords', 'ucwords'));
+
+if ($_ENV["ENVIRONMENT"] !== "prod") {
+    echo "<!--[debug: ENVIRONMENT=$_ENV[ENVIRONMENT]]-->\n";
+}
+
+$refFile = __DIR__ . '/../.git/refs/heads/main';
+$gitHash = is_file($refFile) ? trim(file_get_contents($refFile)) : null;
+$_ENV["GIT_HASH"] = $gitHash;
+
 return $twig;

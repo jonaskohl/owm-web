@@ -28,7 +28,7 @@
     <div class="release-body">{{ converter.convert(release.body)|raw }}</div>
     <p>
         {% for asset in release.assets %}
-            <a href="{{ asset.browser_download_url }}">{{ asset.name }}</a>
+            <a class="button" href="{{ asset.browser_download_url }}"><img src="img/owm_web_icon_exe.png" width="11" height="11" alt="" />&nbsp;{{ asset.name }}</a>
         {% endfor %}
     </p>
 {% else %}

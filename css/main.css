@@ -92,7 +92,8 @@ a:hover {
     -ms-appearance: none;
     appearance: none;
     background: none;
-    font: 10pt sans-serif;
+    font-size: 10pt;
+    font-family: Nunito, 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
     padding: 0;
     height: 24px;
     line-height: 24px;
@@ -325,9 +326,23 @@ hr {
     behavior: url("css/pie/PIE.php");
     color: #fff;
 }
+.button img {
+    vertical-align: middle;
+}
 .button:hover {
     background-color: #a33ee2;
     color: #fff;
+}
+.button:active {
+    background: #8000d1;
+    color: #d1a2ee;
+}
+.button:active img {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=50);
+    -khtml-opacity: 0.5;
+    -moz-opacity: 0.5;
+    opacity: 0.5;
 }
 #totop-wrapper {
     position: absolute;
@@ -358,6 +373,9 @@ hr {
 }
 #totop:hover #totop-gfx {
     background-position: 0 -40px;
+}
+.only-dark {
+    display: none;
 }
 @media (max-width: 640px) {
     #nav {
@@ -408,10 +426,10 @@ hr {
         padding: 0 8px;
     }
     #footer {
-        padding: 16px;
+        padding: 48px 16px 16px;
         line-height: 1.5;
         height: auto;
-        background-size: 100% 100%;
+        /* background-size: 100% 100%; */
     }
     #github-link {
         margin-top: 0;
@@ -422,6 +440,77 @@ hr {
     #forkme-container img {
         width: 96px;
         height: 96px;
+    }
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        color-scheme: dark;
+        background: #3f3f3f;
+    }
+    body {
+        background: #202020;
+        color: #fff;
+    }
+    a, #intro em, h2 {
+        color: #d6abff;
+    }
+    #footer a:hover,
+    a:hover {
+        color: #a16ad4;
+    }
+    hr {
+        background: #d6abff;
+    }
+    h3 {
+        color: #a99bb6;
+    }
+    #main {
+        background: #202020 url("../img/owm_web_dark_pattern.png");
+    }
+    #main>.wrapper {
+        background: url("../img/owm_web_dark_fade.png") repeat-y top center;
+    }
+    #footer {
+        border-top-color: #666;
+        text-shadow: 0 -1px 0 rgba(0,0,0,0.5);
+    }
+    #header, #footer {
+        background-image: url("../img/owm_web_dark_header.png");
+    }
+    #totop-gfx {
+        background-image: url("../img/owm_web_dark_totopbtn.png");
+    }
+    .alert.alert-info {
+        background-color: #2a5ea3;
+        border-color: #a8dfff;
+    }
+    .alert.alert-success {
+        background-color: #6fa32a;
+        border-color: #d6ffa8;
+    }
+    .alert.alert-warning {
+        background-color: #a3792a;
+        border-color: #fff6a8;
+    }
+    .alert.alert-error {
+        background-color: #a32e2a;
+        border-color: #ffaea8;
+    }
+    ul {
+        list-style-image: url("../img/owm_web_dark_bullet.png");
+    }
+    .box {
+        background: #505050 url("../img/owm_web_dark_smallshadow.png") repeat-x;
+        border: 1px solid #666;
+    }
+    .only-dark {
+        display: unset;
+    }
+    .only-light {
+        display: none;
+    }
+    #github-link {
+        background-image: url("../img/owm_web_dark_github.png");
     }
 }
 /* @media (prefers-color-scheme: dark) {

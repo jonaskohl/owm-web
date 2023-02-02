@@ -8,7 +8,8 @@
         <h3><a href="{{ issue.html_url }}">{{ issue.title }}</a></h3>
         <div class="issue-label-list">
             {% for label in issue.labels %}
-                <div class="issue-label" style="background-color:#{{ owm_adjust_brightness(label.color, 0.5) }};color:{{ owm_get_foreground_color(owm_adjust_brightness(label.color, 0.5)) }};border-color:#{{ owm_adjust_brightness(label.color, -0.5) }}">{{ label.name|replace({"-":" "})|ucwords }}</div>
+                <div class="issue-label only-light" style="background-color:#{{ owm_adjust_brightness(label.color, 0.5) }};color:{{ owm_get_foreground_color(owm_adjust_brightness(label.color, 0.5)) }};border-color:#{{ owm_adjust_brightness(label.color, -0.5) }}">{{ label.name|replace({"-":" "})|ucwords }}</div>
+                <div class="issue-label only-dark" style="background-color:#{{ owm_adjust_brightness(label.color, -0.5) }};color:{{ owm_get_foreground_color(owm_adjust_brightness(label.color, -0.5)) }};border-color:#{{ owm_adjust_brightness(label.color, 0.5) }}">{{ label.name|replace({"-":" "})|ucwords }}</div>
             {% endfor %}
         </div>
         <p style="margin:0">Opened on {{ issue.created_at }} by <a href="{{ issue.user.html_url }}">{{ issue.user.login }}</a></p>
