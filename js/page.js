@@ -17,7 +17,9 @@ $(window).on("load", function() {
     window.$owm.resizePageHeight = resize;
 
     $("#totop").click(function() {
-        $("html").stop().animate({ scrollTop: 0 }, 500, 'swing');
+        $("html").stop().animate({ scrollTop: 0 }, 500, function (x, t, b, c, d) {
+            return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
+        });
         return false;
     });
 });
