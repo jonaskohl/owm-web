@@ -15,6 +15,9 @@
         <p style="margin:0">Opened on {{ issue.created_at }} by <a href="{{ issue.user.html_url }}">{{ issue.user.login }}</a></p>
     </div>
 {% else %}
-    <div class="empty-state">There are currently no open issues</div>
+    <div class="empty-state">
+        <div class="empty-state-icon empty-state-icon-issues"></div>
+        <span>There are currently no open issues</span>
+    </div>
 {% endfor %}
 {% endblock %}

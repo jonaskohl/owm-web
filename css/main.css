@@ -81,7 +81,7 @@ a:hover {
 .nav-spacer {
     display: inline-block;
     width: 0;
-    height: 21px;
+    height: 19.5px;
     line-height: 32px;
 }
 #nav button {
@@ -377,6 +377,57 @@ hr {
 .only-dark {
     display: none;
 }
+table.full-width {
+    width: 100%;
+}
+table.bordered {
+    border-collapse: collapse;
+    background: #fff;
+}
+table.bordered thead {
+    background: #ddd;
+}
+table.bordered th,
+table.bordered td {
+    border: 1px solid #999;
+    padding: 2px;
+}
+table.bordered tr.even {
+    background: #fff;
+}
+table.bordered tr.odd {
+    background: #eee;
+}
+.avatar-image {
+    vertical-align: middle;
+}
+.verification-status {
+    vertical-align: middle;
+    margin: -4px;
+}
+.col-collapsed {
+    width: 1px;
+}
+.col-center {
+    text-align: center;
+}
+.empty-state {
+    color: #7f7f7f;
+    text-align: center;
+    font-size: 15pt;
+    margin-top: 48px;
+}
+.empty-state-icon {
+    width: 256px;
+    height: 256px;
+    margin: 0 auto 24px;
+}
+.empty-state-icon.empty-state-icon-issues {
+    background-image: url("../img/empty_issues.png");
+}
+.empty-state-icon.empty-state-icon-releases {
+    background-image: url("../img/empty_releases.png");
+}
 @media (max-width: 640px) {
     #nav {
         background: #5500a5;
@@ -511,6 +562,31 @@ hr {
     }
     #github-link {
         background-image: url("../img/owm_web_dark_github.png");
+    }
+    table.bordered {
+        background: #404040;
+    }
+    table.bordered thead {
+        background: #545454;
+    }
+    table.bordered th,
+    table.bordered td {
+        border-color: #666;
+    }
+    table.bordered tr.even {
+        background: #404040;
+    }
+    table.bordered tr.odd {
+        background: #464646;
+    }
+    .empty-state {
+        color: #9a9a9a;
+    }
+    .empty-state-icon.empty-state-icon-issues {
+        background-image: url("../img/empty_issues_darkmode.png");
+    }
+    .empty-state-icon.empty-state-icon-releases {
+        background-image: url("../img/empty_releases_darkmode.png");
     }
 }
 /* @media (prefers-color-scheme: dark) {

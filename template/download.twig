@@ -32,6 +32,9 @@
         {% endfor %}
     </p>
 {% else %}
-    <div class="empty-state">No releases to show</div>
+    <div class="empty-state">
+        <div class="empty-state-icon empty-state-icon-releases"></div>
+        <span>No releases to show</span>
+    </div>
 {% endfor %}
 {% endblock %}

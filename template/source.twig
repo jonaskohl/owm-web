@@ -19,8 +19,35 @@ git checkout {{ getenv("REPO_BRANCH") }}{#
     </div>
 </div>
 <h2>Commit history</h2>
-{% for commit in commits %}
-    <h3><a href="{{ commit.html_url }}">{{ owm_truncate_string(commit.commit.message, 80) }}</a></h3>    
-    <p>Committed on {{ commit.commit.committer.date }} by <a href="{{ commit.author.html_url }}">{{ commit.commit.author.name }}</a></p>
+<table class="full-width bordered">
+    <thead>
+        <tr>
+            <th></th>
+            <th>SHA</th>
+            <th>Author</th>
+            <th>Message</th>
+            <th>Date</th>
+        </tr>
+    </thead>
+    <tbody>
+{% for i, commit in commits %}
+        <tr class="{{ i % 2 == 0 ? "even" : "odd" }}">
+            <td class="col-collapsed col-center">
+                {% if commit.commit.verification.verified %}
+                    <img src="img/green.png" width="23" height="22" class="verification-status" alt="Verified commit" title="Verified commit" />
+                {% else %}
+                    <img src="img/yellow.png" width="23" height="22" class="verification-status" alt="Unverified commit" title="Unverified commit" />
+                {% endif %}
+            </td>
+            <td><a href="{{ commit.html_url }}"><code>{{ commit.sha|slice(0, 7) }}</code></a></td>
+            <td>
+                <img class="avatar-image" src="avatarproxy.php?url={{ (commit.author.avatar_url ~ "&s=16")|url_encode }}" alt="Avatar" width="16" height="16" />
+                <a href="{{ commit.author.html_url }}">{{ commit.commit.author.name }}</a>
+            </td>
+            <td>{{ owm_truncate_string(commit.commit.message, 80) }}</td>
+            <td>{{ commit.commit.committer.date|date("D, jS M Y, G:i") }}</td>
+        </tr>
 {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

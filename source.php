@@ -26,7 +26,7 @@ if (is_file(CACHE_FILE) && time() - filemtime(CACHE_FILE) < 15*60) {
     file_put_contents(CACHE_FILE, $contents);
 }
 
-$commits = ($data["message"] ?? null) == "Not Found" ? [] : $data;
+$commits = ($data->message ?? null) == "Not Found" ? new stdClass() : $data;
 
 echo $twig->render("source.twig", [
     "commits" => $commits,
