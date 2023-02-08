@@ -407,9 +407,13 @@ table.bordered tr.odd {
 }
 .col-collapsed {
     width: 1px;
+    white-space: nowrap;
 }
 .col-center {
     text-align: center;
+}
+.col-right {
+    text-align: right;
 }
 .empty-state {
     color: #7f7f7f;
@@ -427,6 +431,15 @@ table.bordered tr.odd {
 }
 .empty-state-icon.empty-state-icon-releases {
     background-image: url("../img/empty_releases.png");
+}
+.empty-state-icon.empty-state-icon-commits {
+    background-image: url("../img/empty_commits.png");
+}
+.git-changes-additions {
+    color: #436813;
+}
+.git-changes-deletions {
+    color: #a32e2a;
 }
 @media (max-width: 640px) {
     #nav {
@@ -587,6 +600,15 @@ table.bordered tr.odd {
     }
     .empty-state-icon.empty-state-icon-releases {
         background-image: url("../img/empty_releases_darkmode.png");
+    }
+    .empty-state-icon.empty-state-icon-commits {
+        background-image: url("../img/empty_commits_darkmode.png");
+    }
+    .git-changes-additions {
+        color: #d6ffa8;
+    }
+    .git-changes-deletions {
+        color: #ffaea8;
     }
 }
 /* @media (prefers-color-scheme: dark) {

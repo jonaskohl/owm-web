@@ -33,9 +33,28 @@ $context = stream_context_create([
     ]
 ]);
 
-$result = file_get_contents($url, false, $context);
+$tempFile = __DIR__ . "/.cache/avatar_" . bin2hex(random_bytes(10)) . ".tmp.png";
+$cacheFile = __DIR__ . "/.cache/avatar_" . hash("sha1", $url) . ".png";
 
-foreach ($http_response_header as $h)
-    header($h);
-header("X-OWM-IsProxy: ?1");
-echo $result;
+if (!is_file($cacheFile) || time() - filemtime($cacheFile) > 15*60) {
+    try {
+        copy($url, $tempFile, $context);
+    
+        $base = new Imagick($tempFile);
+        $mask = new Imagick(__DIR__ . "/img/owm_circle_mask_16.png");
+    
+        $base->compositeImage($mask, Imagick::COMPOSITE_COPYOPACITY, 0, 0);
+        $base->writeImage($cacheFile);
+    } finally {
+        unlink($tempFile);
+    }
+}
+
+header("Content-Type: image/png");
+header("Content-Length: " . filesize($cacheFile));
+$seconds_to_cache = 15*60;
+$ts = gmdate("D, d M Y H:i:s", time() + $seconds_to_cache) . " GMT";
+header("Expires: $ts");
+header("Pragma: cache");
+header("Cache-Control: max-age=$seconds_to_cache");
+readfile($cacheFile);

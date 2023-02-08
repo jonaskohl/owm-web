@@ -4,7 +4,6 @@
 {% block body %}
 <p style="float:right;margin:0">
     <a class="button" href="https://github.com/{{ getenv("REPO_AUTHOR")|url_encode }}/{{ getenv("REPO_NAME")|url_encode }}/archive/refs/heads/{{ getenv("REPO_BRANCH")|url_encode }}.tar.gz"><img src="img/owm_web_icon_download.png" width="11" height="11" alt="" />&nbsp;Download archive</a>
-    {# <a class="button" href="#" onclick="$('#cloneUrl').slideToggle('fast', function(){$owm.resizePageHeight()});return false"><img src="img/owm_web_icon_clone.png" width="11" height="11" alt="" />&nbsp;Clone repository</a> #}
     <a class="button" href="#" onclick="$('#cloneUrl').toggle('fast', function(){$owm.resizePageHeight()});return false"><img src="img/owm_web_icon_clone.png" width="11" height="11" alt="" />&nbsp;Clone repository</a>
 </p>
 <h2>Source code</h2>
@@ -19,6 +18,7 @@ git checkout {{ getenv("REPO_BRANCH") }}{#
     </div>
 </div>
 <h2>Commit history</h2>
+{% if commits|length > 0 %}
 <table class="full-width bordered">
     <thead>
         <tr>
@@ -26,6 +26,7 @@ git checkout {{ getenv("REPO_BRANCH") }}{#
             <th>SHA</th>
             <th>Author</th>
             <th>Message</th>
+            <th colspan="2">Changes</th>
             <th>Date</th>
         </tr>
     </thead>
@@ -34,20 +35,40 @@ git checkout {{ getenv("REPO_BRANCH") }}{#
         <tr class="{{ i % 2 == 0 ? "even" : "odd" }}">
             <td class="col-collapsed col-center">
                 {% if commit.commit.verification.verified %}
-                    <img src="img/green.png" width="23" height="22" class="verification-status" alt="Verified commit" title="Verified commit" />
+                    <img src="img/owm_web_light_green.png" width="24" height="24" class="verification-status" alt="Verified commit" title="Verified commit" />
                 {% else %}
-                    <img src="img/yellow.png" width="23" height="22" class="verification-status" alt="Unverified commit" title="Unverified commit" />
+                    <img src="img/owm_web_light_off.png" width="24" height="24" class="verification-status" alt="Unverified commit" title="Unverified commit" />
                 {% endif %}
             </td>
-            <td><a href="{{ commit.html_url }}"><code>{{ commit.sha|slice(0, 7) }}</code></a></td>
-            <td>
+            <td class="col-collapsed"><a href="{{ commit.html_url }}"><code>{{ commit.sha|slice(0, 7) }}</code></a></td>
+            <td class="col-collapsed">
                 <img class="avatar-image" src="avatarproxy.php?url={{ (commit.author.avatar_url ~ "&s=16")|url_encode }}" alt="Avatar" width="16" height="16" />
                 <a href="{{ commit.author.html_url }}">{{ commit.commit.author.name }}</a>
             </td>
             <td>{{ owm_truncate_string(commit.commit.message, 80) }}</td>
-            <td>{{ commit.commit.committer.date|date("D, jS M Y, G:i") }}</td>
+            <td class="col-right col-collapsed">
+                {% if commit._details.stats.additions == 0 %}
+                    <span class="git-changes-additions" title="Additions">0</span>
+                {% else %}
+                    <span class="git-changes-additions" title="Additions">+{{ commit._details.stats.additions }}</span>
+                {% endif %}
+            </td>
+            <td class="col-right col-collapsed">
+                {% if commit._details.stats.deletions == 0 %}
+                    <span class="git-changes-deletions" title="Deletions">0</span>
+                {% else %}
+                    <span class="git-changes-deletions" title="Deletions">-{{ commit._details.stats.deletions }}</span>
+                {% endif %}
+            </td>
+            <td class="col-right col-collapsed">{{ commit.commit.committer.date|date("D, jS M Y, H:i") }}</td>
         </tr>
 {% endfor %}
     </tbody>
 </table>
+{% else %}
+<div class="empty-state">
+    <div class="empty-state-icon empty-state-icon-commits"></div>
+    <span>No commits to show</span>
+</div>
+{% endif %}
 {% endblock %}

@@ -28,6 +28,20 @@ if (is_file(CACHE_FILE) && time() - filemtime(CACHE_FILE) < 15*60) {
 
 $commits = ($data->message ?? null) == "Not Found" ? new stdClass() : $data;
 
+foreach ($commits as &$commit) {
+    $url = $commit->url;
+    $subCacheFile = ".cache/commits." . $commit->sha;
+    if (!is_dir(dirname($subCacheFile))) mkdir(dirname($subCacheFile), 0777, true);
+    if (is_file($subCacheFile)) {
+        $data = json_decode(file_get_contents($subCacheFile));
+    } else {
+        $contents = file_get_contents($url, false, $context);
+        $data = json_decode($contents);
+        file_put_contents($subCacheFile, $contents);
+    }
+    $commit->_details = $data;
+}
+
 echo $twig->render("source.twig", [
     "commits" => $commits,
 ]);

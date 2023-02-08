@@ -8,10 +8,15 @@ $dotenv = new Dotenv();
 $dotenv->load(__DIR__ . '/../.env');
 
 $twigOpts = [];
-if ($_ENV["ENVIRONMENT"] === "prod")
-    $twigOpts['cache'] = __DIR__ . '/../.cache/twig';
+$isProduction = $_ENV["ENVIRONMENT"] === "prod";
+if ($isProduction)
+    $twigOpts["cache"] = __DIR__ . "/../.cache/twig";
+else
+    $twigOpts["debug"] = true;
 $loader = new \Twig\Loader\FilesystemLoader(__DIR__ . '/../template');
 $twig = new \Twig\Environment($loader, $twigOpts);
+if (!$isProduction)
+    $twig->addExtension(new \Twig\Extension\DebugExtension());
 $twig->addFunction(
     new \Twig\TwigFunction('getenv', function($key) {
         return $_ENV[$key] ?? null;
