@@ -52,10 +52,11 @@ $twig->addFunction(
     })
 );
 $twig->addFilter(new \Twig\TwigFilter('ucwords', 'ucwords'));
+$twig->addFilter(new \Twig\TwigFilter('values', 'array_values'));
 
-if ($_ENV["ENVIRONMENT"] !== "prod") {
-    echo "<!--[debug: ENVIRONMENT=$_ENV[ENVIRONMENT]]-->\n";
-}
+// if ($_ENV["ENVIRONMENT"] !== "prod") {
+//     echo "<!--[debug: ENVIRONMENT=$_ENV[ENVIRONMENT]]-->\n";
+// }
 
 $refFile = __DIR__ . '/../.git/refs/heads/main';
 $gitHash = is_file($refFile) ? trim(file_get_contents($refFile)) : null;

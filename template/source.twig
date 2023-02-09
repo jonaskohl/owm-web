@@ -2,6 +2,16 @@
 {% set activeNav = "source" %}
 {% extends "_layout.twig" %}
 {% block body %}
+<script type="text/javascript">
+function fetchCommitDetails(sha) {
+    $.get("ajax.source.php?sha=" + encodeURIComponent(sha), function(json) {
+        $("#git_additions_" + sha).text(json.stats.additions === 0 ? "0" : ("+"+json.stats.additions)).show();
+        $("#git_additions_" + sha + "_spinner").hide();
+        $("#git_deletions_" + sha).text(json.stats.deletions === 0 ? "0" : ("-"+json.stats.deletions)).show();
+        $("#git_deletions_" + sha + "_spinner").hide();
+    });
+}
+</script>
 <p style="float:right;margin:0">
     <a class="button" href="https://github.com/{{ getenv("REPO_AUTHOR")|url_encode }}/{{ getenv("REPO_NAME")|url_encode }}/archive/refs/heads/{{ getenv("REPO_BRANCH")|url_encode }}.tar.gz"><img src="img/owm_web_icon_download.png" width="11" height="11" alt="" />&nbsp;Download archive</a>
     <a class="button" href="#" onclick="$('#cloneUrl').toggle('fast', function(){$owm.resizePageHeight()});return false"><img src="img/owm_web_icon_clone.png" width="11" height="11" alt="" />&nbsp;Clone repository</a>
@@ -47,21 +57,16 @@ git checkout {{ getenv("REPO_BRANCH") }}{#
             </td>
             <td>{{ owm_truncate_string(commit.commit.message, 80) }}</td>
             <td class="col-right col-collapsed">
-                {% if commit._details.stats.additions == 0 %}
-                    <span class="git-changes-additions" title="Additions">0</span>
-                {% else %}
-                    <span class="git-changes-additions" title="Additions">+{{ commit._details.stats.additions }}</span>
-                {% endif %}
+                <span class="git-changes-additions" id="git_additions_{{ commit.sha }}" style="display:none" title="Additions"></span>
+                <span class="spinner" id="git_additions_{{ commit.sha }}_spinner"></span>
             </td>
             <td class="col-right col-collapsed">
-                {% if commit._details.stats.deletions == 0 %}
-                    <span class="git-changes-deletions" title="Deletions">0</span>
-                {% else %}
-                    <span class="git-changes-deletions" title="Deletions">-{{ commit._details.stats.deletions }}</span>
-                {% endif %}
+                <span class="git-changes-deletions" id="git_deletions_{{ commit.sha }}" style="display:none" title="Deletions"></span>
+                <span class="spinner" id="git_deletions_{{ commit.sha }}_spinner"></span>
             </td>
             <td class="col-right col-collapsed">{{ commit.commit.committer.date|date("D, jS M Y, H:i") }}</td>
         </tr>
+        <script type="text/javascript">fetchCommitDetails({{ commit.sha|json_encode()|raw }});</script>
 {% endfor %}
     </tbody>
 </table>

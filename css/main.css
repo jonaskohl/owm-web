@@ -445,6 +445,13 @@ table.bordered tr.odd {
 .avatar-loading {
     background-image: url("../img/owm_web_spinner_light.gif");
 }
+.spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    background-image: url("../img/owm_web_spinner_light.gif");
+}
 @media (max-width: 640px) {
     #nav {
         background: #5500a5;
@@ -617,6 +624,7 @@ table.bordered tr.odd {
     .git-changes-deletions {
         color: #ffaea8;
     }
+    .spinner,
     .avatar-loading {
         background-image: url("../img/owm_web_spinner_dark.gif");
     }
