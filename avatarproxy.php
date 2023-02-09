@@ -41,6 +41,9 @@ if (!is_file($cacheFile) || time() - filemtime($cacheFile) > 15*60) {
         copy($url, $tempFile, $context);
     
         $base = new Imagick($tempFile);
+        if ($base->getImageWidth() !== 16 && $base->getImageHeight() !== 16)
+            $base->resizeImage(16, 16, Imagick::FILTER_QUADRATIC, 1);
+        $base->setImageAlphaChannel(Imagick::ALPHACHANNEL_ACTIVATE);
         $mask = new Imagick(__DIR__ . "/img/owm_circle_mask_16.png");
     
         $base->compositeImage($mask, Imagick::COMPOSITE_COPYOPACITY, 0, 0);

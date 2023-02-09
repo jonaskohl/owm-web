@@ -15,6 +15,9 @@
     <script type="text/javascript" src="js/page.js"></script>
 </head>
 <body>
+{% if getenv("ENVIRONMENT") != "prod" %}
+    <div style="position:fixed;left:0;top:0;z-index:9999;background:white;color:red;font:bold 14pt serif;cursor:pointer" title="Click to dismiss" onclick="$(this).remove()">DEV ENVIRONMENT</div>
+{% endif %}
     <div id="header">
         <div class="wrapper">
             <img src="img/owm_text_web.png" id="logo" alt="Open Wii Manager" width="404" height="64" />

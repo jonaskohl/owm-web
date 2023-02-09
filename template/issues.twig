@@ -2,22 +2,64 @@
 {% set activeNav = "issues" %}
 {% extends "_layout.twig" %}
 {% block body %}
-<h2>Open issues</h2>
-{% for issue in issues %}
-    <div class="box">
-        <h3><a href="{{ issue.html_url }}">{{ issue.title }}</a></h3>
-        <div class="issue-label-list">
-            {% for label in issue.labels %}
-                <div class="issue-label only-light" style="background-color:#{{ owm_adjust_brightness(label.color, 0.5) }};color:{{ owm_get_foreground_color(owm_adjust_brightness(label.color, 0.5)) }};border-color:#{{ owm_adjust_brightness(label.color, -0.5) }}">{{ label.name|replace({"-":" "})|ucwords }}</div>
-                <div class="issue-label only-dark" style="background-color:#{{ owm_adjust_brightness(label.color, -0.5) }};color:{{ owm_get_foreground_color(owm_adjust_brightness(label.color, -0.5)) }};border-color:#{{ owm_adjust_brightness(label.color, 0.5) }}">{{ label.name|replace({"-":" "})|ucwords }}</div>
+<h2>Issues</h2>
+<p style="float:right;margin:0">
+    {% if onlyshow %}
+        <a class="button" href="issues.php">Reset filter</a>
+    {% endif %}
+    {% if not onlyshow or onlyshow == "open" %}
+        <a class="button" href="issues.php?only_show=closed">Only show closed</a>
+    {% endif %}
+    {% if not onlyshow or onlyshow == "closed" %}
+        <a class="button" href="issues.php?only_show=open">Only show open</a>
+    {% endif %}
+</p>
+{% set issues = issues|filter(issue => onlyshow == null or issue.state == onlyshow) %}
+{% if issues|length > 0 %}
+    <table class="full-width bordered">
+        <thead>
+            <tr>
+                <th></th>
+                <th>ID</th>
+                <th>Author</th>
+                <th>Title</th>
+                <th>Labels</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i, issue in issues %}
+                <tr class="{{ i % 2 == 0 ? "even" : "odd" }}">
+                    <td class="col-collapsed">
+                        {% if issue.state == "open" %}
+                            <img src="img/owm_web_light_purple.png" width="24" height="24" class="issue-status" alt="Open issue" title="Open issue" />
+                        {% else %}
+                            <img src="img/owm_web_light_off.png" width="24" height="24" class="issue-status" alt="Closed issue" title="Closed issue" />
+                        {% endif %}
+                    </td>
+                    <td class="col-collapsed col-right">{{ issue.number }}</td>
+                    <td class="col-collapsed">
+                        <img onload="this.className=this.className.replace('avatar-loading','')" onerror="this.className=this.className.replace('avatar-loading','avatar-error')" class="avatar-loading avatar-image" src="avatarproxy.php?url={{ (issue.user.avatar_url ~ "&s=16")|url_encode }}" alt="" title="Avatar of {{ issue.user.login }}" width="16" height="16" />
+                        <a href="{{ issue.user.html_url }}">{{ issue.user.login }}</a>
+                    </td>
+                    <td><a href="{{ issue.html_url }}">{{ issue.title }}</a></td>
+                    <td>
+                        {% for label in issue.labels %}
+                            <div class="issue-label only-light" style="background-color:#{{ owm_adjust_brightness(label.color, 0.5) }};color:{{ owm_get_foreground_color(owm_adjust_brightness(label.color, 0.5)) }};border-color:#{{ owm_adjust_brightness(label.color, -0.5) }}">{{ label.name|replace({"-":" "})|ucwords }}</div>
+                            <div class="issue-label only-dark" style="background-color:#{{ owm_adjust_brightness(label.color, -0.5) }};color:{{ owm_get_foreground_color(owm_adjust_brightness(label.color, -0.5)) }};border-color:#{{ owm_adjust_brightness(label.color, 0.5) }}">{{ label.name|replace({"-":" "})|ucwords }}</div>
+                        {% else %}
+                            <em>No labels</em>
+                        {% endfor %}
+                    </td>
+                    <td class="col-collapsed col-right">{{ issue.created_at|date("D, jS M Y, H:i") }}</td>
+                </tr>
             {% endfor %}
-        </div>
-        <p style="margin:0">Opened on {{ issue.created_at }} by <a href="{{ issue.user.html_url }}">{{ issue.user.login }}</a></p>
-    </div>
+        </tbody>
+    </table>
 {% else %}
     <div class="empty-state">
         <div class="empty-state-icon empty-state-icon-issues"></div>
-        <span>There are currently no open issues</span>
+        <span>There are currently no issues to show</span>
     </div>
-{% endfor %}
+{% endif %}
 {% endblock %}
