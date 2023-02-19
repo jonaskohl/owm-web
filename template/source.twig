@@ -13,8 +13,8 @@ function fetchCommitDetails(sha) {
 }
 </script>
 <p style="float:right;margin:0">
-    <a class="button" href="https://github.com/{{ getenv("REPO_AUTHOR")|url_encode }}/{{ getenv("REPO_NAME")|url_encode }}/archive/refs/heads/{{ getenv("REPO_BRANCH")|url_encode }}.tar.gz"><img src="img/owm_web_icon_download.png" width="11" height="11" alt="" />&nbsp;Download archive</a>
-    <a class="button" href="#" onclick="$('#cloneUrl').toggle('fast', function(){$owm.resizePageHeight()});return false"><img src="img/owm_web_icon_clone.png" width="11" height="11" alt="" />&nbsp;Clone repository</a>
+    <a class="button" href="https://github.com/{{ getenv("REPO_AUTHOR")|url_encode }}/{{ getenv("REPO_NAME")|url_encode }}/archive/refs/heads/{{ getenv("REPO_BRANCH")|url_encode }}.tar.gz"><img src="img/owm_web_icon_download.png" width="11" height="11" alt="" />&#xA0;Download archive</a>
+    <a class="button" href="#" onclick="$('#cloneUrl').toggle('fast', function(){$owm.resizePageHeight()});return false"><img src="img/owm_web_icon_clone.png" width="11" height="11" alt="" />&#xA0;Clone repository</a>
 </p>
 <h2>Source code</h2>
 <div style="clear:both"></div>

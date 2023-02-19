@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/inc/httputil.inc.php";
+require_once __DIR__ . "/inc/contenttype.inc.php";
 $twig = require_once __DIR__ . "/inc/common.inc.php";
 
 $url = "https://api.github.com/repos/".urlencode($_ENV["REPO_AUTHOR"])."/".urlencode($_ENV["REPO_NAME"])."/commits?per_page=100&sha=" . urlencode($_ENV["REPO_BRANCH"]);
@@ -54,5 +55,10 @@ $commits = ($data["message"] ?? null) === "Not Found" ? [] : $data;
 // }
 
 echo $twig->render("source.twig", [
+    "g_owm" => [
+        "http" => [
+            "content_type" => OWM_HTTP_CURRENT_CONTENT_TYPE
+        ]
+    ],
     "commits" => $commits,
 ]);

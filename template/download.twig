@@ -20,7 +20,7 @@
 {% if releases %}
 <div class="release-body">{{ converter.convert(releases[0].body)|raw }}</div>
 {% endif %}
-<hr>
+<hr />
 <h2>All versions</h2>
 {% for release in releases %}
     <h3><a href="{{ release.html_url }}">{{ release.name }}</a></h3>
@@ -28,7 +28,7 @@
     <div class="release-body">{{ converter.convert(release.body)|raw }}</div>
     <p>
         {% for asset in release.assets %}
-            <a class="button" href="{{ asset.browser_download_url }}"><img src="img/owm_web_icon_exe.png" width="11" height="11" alt="" />&nbsp;{{ asset.name }}</a>
+            <a class="button" href="{{ asset.browser_download_url }}"><img src="img/owm_web_icon_exe.png" width="11" height="11" alt="" />&#xA0;{{ asset.name }}</a>
         {% endfor %}
     </p>
 {% else %}

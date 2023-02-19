@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/inc/httputil.inc.php";
+require_once __DIR__ . "/inc/contenttype.inc.php";
 $twig = require_once __DIR__ . "/inc/common.inc.php";
 
 $url = "https://api.github.com/repos/".urlencode($_ENV["REPO_AUTHOR"])."/".urlencode($_ENV["REPO_NAME"])."/issues?state=all&per_page=100";
@@ -40,6 +41,11 @@ if (is_file(CACHE_FILE) && time() - filemtime(CACHE_FILE) < 15*60) {
 $issues = ($data["message"] ?? null) == "Not Found" ? [] : $data;
 
 echo $twig->render("issues.twig", [
+    "g_owm" => [
+        "http" => [
+            "content_type" => OWM_HTTP_CURRENT_CONTENT_TYPE
+        ]
+    ],
     "issues" => $issues,
     "onlyshow" => ($_GET["only_show"] ?? null)
 ]);

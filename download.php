@@ -1,6 +1,7 @@
 <?php
 
 $twig = require_once __DIR__ . "/inc/common.inc.php";
+require_once __DIR__ . "/inc/contenttype.inc.php";
 
 use League\CommonMark\GithubFlavoredMarkdownConverter;
 
@@ -36,6 +37,11 @@ if (is_file(CACHE_FILE) && time() - filemtime(CACHE_FILE) < 15*60) {
 $releases = ($data->message ?? null) == "Not Found" ? [] : $data;
 
 echo $twig->render('download.twig', [
+    "g_owm" => [
+        "http" => [
+            "content_type" => OWM_HTTP_CURRENT_CONTENT_TYPE
+        ]
+    ],
     "releases" => $releases,
     "converter" => $converter,
 ]);

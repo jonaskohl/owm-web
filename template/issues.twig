@@ -5,13 +5,13 @@
 <h2>Issues</h2>
 <p style="float:right;margin:0">
     {% if onlyshow %}
-        <a class="button" href="issues.php"><img src="img/owm_web_icon_reset.png" width="11" height="11" alt="" />&nbsp;Reset filter</a>
+        <a class="button" href="issues.php"><img src="img/owm_web_icon_reset.png" width="11" height="11" alt="" />&#xA0;Reset filter</a>
     {% endif %}
     {% if not onlyshow or onlyshow == "open" %}
-        <a class="button" href="issues.php?only_show=closed"><img src="img/owm_web_light_off_small.png" width="11" height="11" alt="" />&nbsp;Only show closed</a>
+        <a class="button" href="issues.php?only_show=closed"><img src="img/owm_web_light_off_small.png" width="11" height="11" alt="" />&#xA0;Only show closed</a>
     {% endif %}
     {% if not onlyshow or onlyshow == "closed" %}
-        <a class="button" href="issues.php?only_show=open"><img src="img/owm_web_light_orange_small.png" width="11" height="11" alt="" />&nbsp;Only show open</a>
+        <a class="button" href="issues.php?only_show=open"><img src="img/owm_web_light_orange_small.png" width="11" height="11" alt="" />&#xA0;Only show open</a>
     {% endif %}
 </p>
 {% set issues = issues|filter(issue => onlyshow == null or issue.state == onlyshow)|values %}

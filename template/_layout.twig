@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="{{ g_owm.http.content_type }};charset=UTF-8" />
     <meta name="msapplication-navbutton-color" content="#8000d1" />
     <meta name="theme-color" content="#8000d1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>{% if title %}{{ title }} &ndash; {% endif %}Open Wii Manager</title>
+    <title>{% if title %}{{ title }} &#x2013; {% endif %}Open Wii Manager</title>
     <link rel="shortcut icon" href="img/owm.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/nunito.css" type="text/css" />
     <link rel="stylesheet" href="css/normalize.css" type="text/css" />
@@ -44,14 +44,14 @@
     <div id="footer">
         <div id="totop-wrapper">
             <a href="#" id="totop">
-                <div id="totop-gfx"></div>
+                <span id="totop-gfx"></span>
                 <span>To top</span>
             </a>
         </div>
         <div id="footer-shadow" class="shadow"></div>
         <div class="wrapper">
-            Open Wii Manager &ndash; A project by <a href="https://jonaskohl.de/" target="_blank">Jonas Kohl</a>
-            &ndash; Website version <a href="//github.com/jonaskohl/owm-web/tree/{{ getenv("GIT_HASH")|default("main")|url_encode }}" target="_blank">{{ getenv("GIT_HASH")|slice(0, 7)|default("unknown") }}</a>
+            Open Wii Manager &#x2013; A project by <a href="https://jonaskohl.de/" target="_blank">Jonas Kohl</a>
+            &#x2013; Website version <a href="//github.com/jonaskohl/owm-web/tree/{{ getenv("GIT_HASH")|default("main")|url_encode }}" target="_blank">{{ getenv("GIT_HASH")|slice(0, 7)|default("unknown") }}</a>
             <div id="footer-links">
                 <a href="//github.com/jonaskohl/OpenWiiManager.git" target="_blank" id="github-link">GitHub</a>
             </div>
