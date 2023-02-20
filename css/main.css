@@ -11,8 +11,13 @@ body {
     color: #000;
     font-family: Nunito, 'Arial Rounded MT Bold', 'Helvetica Rounded', Arial, sans-serif;
 }
+.purple-em,
 a {
     color: #8000d1;
+}
+.purple-em {
+    font-style: normal;
+    font-weight: bold;
 }
 #footer a:hover,
 a:hover {
@@ -553,7 +558,7 @@ table.bordered tr.odd {
         background: #202020;
         color: #fff;
     }
-    a, #intro em, h2 {
+    a, #intro em, h2, .purple-em {
         color: #d6abff;
     }
     #footer a:hover,
