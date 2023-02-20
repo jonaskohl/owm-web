@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" prefix="og: http://ogp.me/ns# owm: http://owm.jonaskohl.de/ns#">
 <head>
     <meta http-equiv="Content-Type" content="{{ g_owm.http.content_type }};charset=UTF-8" />
     <meta name="msapplication-navbutton-color" content="#8000d1" />
     <meta name="theme-color" content="#8000d1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta property="og:title" content="{% if title %}{{ title }} &#x2013; {% endif %}Open Wii Manager" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="{{ getenv("FULL_URL") }}" />
+    <meta property="og:image" content="{{ getenv("FULL_URL_PREFIX") }}/img/owm_web_social.png" />
+    <meta name="owm:site:repo:commit" content="{{ getenv("GIT_HASH")|default("main")|default("unknown")|url_encode }}" />
+    <meta name="owm:site:repo:type" content="git" />
+    <meta name="owm:site:repo:remote" content="http://github.com/jonaskohl/owm-web.git" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <!--de.jonaskohl.wii.toolbox.title:{% if title %}{{ title }} &#x2013; {% endif %}Open Wii Manager-->
     <title>{% if title %}{{ title }} &#x2013; {% endif %}Open Wii Manager</title>
     <link rel="shortcut icon" href="img/owm.ico" type="image/x-icon" />
     <link rel="stylesheet" href="css/nunito.css" type="text/css" />
@@ -15,6 +23,24 @@
     <script type="text/javascript" src="js/page.js"></script>
 </head>
 <body>
+    <!--[if lt IE 8]>
+        <div id="ie-notice">
+            <img src="img/ie.gif" alt="Logo of Internet Explorer" width="75" height="80" title="" draggable="false" /><br /><br />
+            You are using an older version of Internet Explorer, which this site does not support. Please
+            <a href="http://www.microsoft.com/windows/internet-explorer/default.aspx">upgrade to at least Internet Explorer 8</a>
+            or another browser like
+            <a href="http://www.mozilla.com/en-US/firefox/firefox.html">Mozilla Firefox</a> or
+            <a href="http://www.google.com/chrome">Google Chrome</a>.
+        </div>
+        <script type="text/javascript">
+            $("html").addClass("lt-ie8");
+            $(function() {
+                var height = $("#ie-notice").outerHeight();
+                $("body").css("margin-top", height + "px");
+                $("#shadow, #forkme-container img").css("top", "+=" + height + "px");
+            });
+        </script>
+    <![endif]-->
 {% if getenv("ENVIRONMENT") != "prod" %}
     <div style="position:fixed;left:0;top:0;z-index:9999;background:white;color:red;font:bold 14pt serif;cursor:pointer" title="Click to dismiss" onclick="$(this).remove()">DEV ENVIRONMENT</div>
 {% endif %}
@@ -51,15 +77,15 @@
         <div id="footer-shadow" class="shadow"></div>
         <div class="wrapper">
             Open Wii Manager &#x2013; A project by <a href="https://jonaskohl.de/" target="_blank">Jonas Kohl</a>
-            &#x2013; Website version <a href="//github.com/jonaskohl/owm-web/tree/{{ getenv("GIT_HASH")|default("main")|url_encode }}" target="_blank">{{ getenv("GIT_HASH")|slice(0, 7)|default("unknown") }}</a>
+            &#x2013; Website version <a href="//github.com/jonaskohl/owm-web/tree/{{ getenv("GIT_HASH")|default("main")|url_encode }}" target="_blank">{{ getenv("GIT_HASH")|slice(0, 7)|default("main") }}</a>
             <div id="footer-links">
-                <a href="//github.com/jonaskohl/OpenWiiManager.git" target="_blank" id="github-link">GitHub</a>
+                <a href="//github.com/{{ getenv("REPO_AUTHOR")|url_encode }}/{{ getenv("REPO_NAME")|url_encode }}" target="_blank" id="github-link">GitHub</a>
             </div>
         </div>
     </div>
 
     <div id="forkme-container">
-        <a href="http://github.com/jonaskohl/OpenWiiManager.git">
+        <a href="//github.com/{{ getenv("REPO_AUTHOR")|url_encode }}/{{ getenv("REPO_NAME")|url_encode }}">
             <img src="/img/owm_web_forkme.png" alt="Fork me on GitHub" width="149" height="149" />
         </a>
     </div>

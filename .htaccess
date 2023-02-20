@@ -1,1 +1,8 @@
+Options -Indexes
+
+<Files ~ "\.(env|json|config.js|md|gitignore|gitattributes|lock)$">
+    Order allow,deny
+    Deny from all
+</Files>
+
 ErrorDocument 404 /404.php

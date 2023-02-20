@@ -62,4 +62,12 @@ $refFile = __DIR__ . '/../.git/refs/heads/main';
 $gitHash = is_file($refFile) ? trim(file_get_contents($refFile)) : null;
 $_ENV["GIT_HASH"] = $gitHash;
 
+$__http_host = apache_getenv("HTTP_HOST");
+if ($__http_host === false) $__http_host = $_SERVER["HTTP_HOST"];
+$__request_uri = apache_getenv("REQUEST_URI");
+if ($__request_uri === false) $__request_uri = $_SERVER["REQUEST_URI"];
+$_ENV["FULL_URL_PREFIX"] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$__http_host";
+$_ENV["FULL_URL"] = "$_ENV[FULL_URL_PREFIX]$__request_uri";
+unset($__http_host, $__request_uri);
+
 return $twig;

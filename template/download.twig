@@ -16,25 +16,27 @@
     <li>64 MB available hard disk space</li>
 </ul>
 <div style="clear: both;"></div>
-<h3>What&#39;s new?</h3>
-{% if releases %}
-<div class="release-body">{{ converter.convert(releases[0].body)|raw }}</div>
+{% if releases and releases[0] %}
+    <h3>What&#39;s new?</h3>
+    <div class="release-body">{{ converter.convert(releases[0].body)|raw }}</div>
 {% endif %}
 <hr />
-<h2>All versions</h2>
-{% for release in releases %}
-    <h3><a href="{{ release.html_url }}">{{ release.name }}</a></h3>
-    <p>{{ release.published_at }}</p>
-    <div class="release-body">{{ converter.convert(release.body)|raw }}</div>
-    <p>
-        {% for asset in release.assets %}
-            <a class="button" href="{{ asset.browser_download_url }}"><img src="img/owm_web_icon_exe.png" width="11" height="11" alt="" />&#xA0;{{ asset.name }}</a>
-        {% endfor %}
-    </p>
+{% if releases|length %}
+    <h2>All versions</h2>
+    {% for release in releases %}
+        <h3><a href="{{ release.html_url }}">{{ release.name }}</a></h3>
+        <p>{{ release.published_at }}</p>
+        <div class="release-body">{{ converter.convert(release.body)|raw }}</div>
+        <p>
+            {% for asset in release.assets %}
+                <a class="button" href="{{ asset.browser_download_url }}"><img src="img/owm_web_icon_exe.png" width="11" height="11" alt="" />&#xA0;{{ asset.name }}</a>
+            {% endfor %}
+        </p>
+    {% endfor %}
 {% else %}
     <div class="empty-state">
         <div class="empty-state-icon empty-state-icon-releases"></div>
         <span>No releases to show</span>
     </div>
-{% endfor %}
+{% endif %}
 {% endblock %}

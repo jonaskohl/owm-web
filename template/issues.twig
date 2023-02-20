@@ -4,6 +4,8 @@
 {% block body %}
 <h2>Issues</h2>
 <p style="float:right;margin:0">
+    <a class="button" href="https://github.com/{{ getenv("REPO_AUTHOR")|url_encode }}/{{ getenv("REPO_NAME")|url_encode }}/issues/new"><img src="img/owm_web_icon_add.png" width="11" height="11" alt="" />&#xA0;Create issue</a>
+    <span class="button-separator"></span>
     {% if onlyshow %}
         <a class="button" href="issues.php"><img src="img/owm_web_icon_reset.png" width="11" height="11" alt="" />&#xA0;Reset filter</a>
     {% endif %}
