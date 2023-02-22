@@ -71,7 +71,11 @@ Below is a complete list of source commits to the <a href="//github.com/{{ geten
             </td>
             <td class="col-right col-collapsed">{{ commit.commit.committer.date|date("D, jS M Y, H:i") }}</td>
         </tr>
-        <script type="text/javascript">fetchCommitDetails({{ commit.sha|json_encode()|raw }});</script>
+        <script type="text/javascript">
+            $(function() {
+                fetchCommitDetails({{ commit.sha|json_encode()|raw }});
+            });
+        </script>
 {% endfor %}
     </tbody>
 </table>
