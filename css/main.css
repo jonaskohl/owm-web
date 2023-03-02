@@ -492,7 +492,12 @@ table.bordered tr.odd {
         background: -moz-linear-gradient(to bottom, #5500a5, #8000d1);
         background: -o-linear-gradient(to bottom, #5500a5, #8000d1);
         background: linear-gradient(to bottom, #5500a5, #8000d1);
+        -webkit-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25) inset, 0 2px 6px rgba(0, 0, 0, 0.25);
+        -moz-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25) inset, 0 2px 6px rgba(0, 0, 0, 0.25);
+        -o-box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25) inset, 0 2px 6px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25) inset, 0 2px 6px rgba(0, 0, 0, 0.25);
         height: auto;
+        z-index: 9;
     }
     #nav .wrapper {
         padding: 0;
@@ -547,6 +552,8 @@ table.bordered tr.odd {
     #forkme-container img {
         width: 96px;
         height: 96px;
+        -webkit-clip-path: polygon(38px 0px, 96px 58px, 96px 88px, 9px 0px);
+        clip-path: polygon(38px 0px, 96px 58px, 96px 88px, 9px 0px);
     }
 }
 @media (prefers-color-scheme: dark) {
