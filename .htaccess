@@ -5,4 +5,5 @@ Options -Indexes
     Deny from all
 </Files>
 
+FallbackResource /index.php
 ErrorDocument 404 /404.php

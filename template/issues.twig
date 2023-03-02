@@ -7,13 +7,13 @@
     <a class="button" href="https://github.com/{{ getenv("REPO_AUTHOR")|url_encode }}/{{ getenv("REPO_NAME")|url_encode }}/issues/new"><img src="img/owm_web_icon_add.png" width="11" height="11" alt="" />&#xA0;Create issue</a>
     <span class="button-separator"></span>
     {% if onlyshow %}
-        <a class="button" href="issues.php"><img src="img/owm_web_icon_reset.png" width="11" height="11" alt="" />&#xA0;Reset filter</a>
+        <a class="button" href="issues"><img src="img/owm_web_icon_reset.png" width="11" height="11" alt="" />&#xA0;Reset filter</a>
     {% endif %}
     {% if not onlyshow or onlyshow == "open" %}
-        <a class="button" href="issues.php?only_show=closed"><img src="img/owm_web_light_off_small.png" width="11" height="11" alt="" />&#xA0;Only show closed</a>
+        <a class="button" href="issues?only_show=closed"><img src="img/owm_web_light_off_small.png" width="11" height="11" alt="" />&#xA0;Only show closed</a>
     {% endif %}
     {% if not onlyshow or onlyshow == "closed" %}
-        <a class="button" href="issues.php?only_show=open"><img src="img/owm_web_light_orange_small.png" width="11" height="11" alt="" />&#xA0;Only show open</a>
+        <a class="button" href="issues?only_show=open"><img src="img/owm_web_light_orange_small.png" width="11" height="11" alt="" />&#xA0;Only show open</a>
     {% endif %}
 </p>
 {% set issues = issues|filter(issue => onlyshow == null or issue.state == onlyshow)|values %}
@@ -45,7 +45,7 @@
                     </td>
                     <td class="col-collapsed col-right">{{ issue.number }}</td>
                     <td class="col-collapsed">
-                        <img onload="this.className=this.className.replace('avatar-loading','')" onerror="this.className=this.className.replace('avatar-loading','avatar-error')" class="avatar-loading avatar-image" src="avatarproxy.php?url={{ (issue.user.avatar_url ~ "&s=16")|url_encode }}" alt="" title="Avatar of {{ issue.user.login }}" width="16" height="16" />
+                        <img onload="this.className=this.className.replace('avatar-loading','')" onerror="this.className=this.className.replace('avatar-loading','avatar-error')" class="avatar-loading avatar-image" src="avatarproxy?url={{ (issue.user.avatar_url ~ "&s=16")|url_encode }}" alt="" title="Avatar of {{ issue.user.login }}" width="16" height="16" />
                         <a href="{{ issue.user.html_url }}">{{ issue.user.login }}</a>
                     </td>
                     <td><a href="{{ issue.html_url }}">{{ issue.title }}</a></td>

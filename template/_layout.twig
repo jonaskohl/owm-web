@@ -62,11 +62,11 @@
         <div class="wrapper">
             <button onclick="$('#nav').toggleClass('shown')"><span>Menu</span><i class="menu-icon"></i></button>
             {% set hasActiveNav = false %}
-            <a{% if activeNav == "index" %}{% set hasActiveNav = true %} class="current"{% endif %} href="index.php">Home</a>
-            <a{% if activeNav == "download" %}{% set hasActiveNav = true %} class="current"{% endif %} href="download.php">Download</a>
-            <a{% if activeNav == "source" %}{% set hasActiveNav = true %} class="current"{% endif %} href="source.php">Source code</a>
-            <a{% if activeNav == "issues" %}{% set hasActiveNav = true %} class="current"{% endif %} href="issues.php">Issues</a>
-            <a{% if activeNav == "wiki" %}{% set hasActiveNav = true %} class="current"{% endif %} href="wiki.php">Wiki</a>
+            <a{% if activeNav == "index" %}{% set hasActiveNav = true %} class="current"{% endif %} href=".">Home</a>
+            <a{% if activeNav == "download" %}{% set hasActiveNav = true %} class="current"{% endif %} href="download">Download</a>
+            <a{% if activeNav == "source" %}{% set hasActiveNav = true %} class="current"{% endif %} href="source">Source code</a>
+            <a{% if activeNav == "issues" %}{% set hasActiveNav = true %} class="current"{% endif %} href="issues">Issues</a>
+            <a{% if activeNav == "wiki" %}{% set hasActiveNav = true %} class="current"{% endif %} href="wiki">Wiki</a>
             {% if not hasActiveNav %}<span class="nav-spacer"></span>{% endif %}
         </div>
     </div>
