@@ -153,7 +153,7 @@ a:hover {
     overflow: hidden;
     height: 100%;
 }
-#main-screenshot {
+.intro-screenshot {
     display: block;
     max-width: 100%;
     height: auto;
@@ -190,6 +190,21 @@ a:hover {
 }
 #download-link:active {
     background-position: 0 -128px;
+}
+@supports (background-size: 10px) {
+    @media (max-width: 290px) {
+        #download-link {
+            width: 128px;
+            height: 32px;
+            background-size: 128px auto;
+        }
+        #download-link:hover {
+            background-position: 0 -32px;
+        }
+        #download-link:active {
+            background-position: 0 -64px;
+        }
+    }
 }
 #footer {
     position: relative;
