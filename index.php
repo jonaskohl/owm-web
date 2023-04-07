@@ -278,6 +278,10 @@ get("/avatarproxy", function() {
     readfile($cacheFile);
 });
 
+get("/wiki", function() {
+    header("Location: https://github.com/".urlencode($_ENV["REPO_AUTHOR"])."/".urlencode($_ENV["REPO_NAME"])."/wiki");
+});
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 $pathMatched = false;

@@ -159,15 +159,22 @@ a:hover {
     height: auto;
     margin: 0 auto;
 }
-#intro {
+.claim {
     font-weight: bold;
     font-size: 14pt;
     text-align: center;
     margin: 8px 0 32px;
 }
-#intro em {
+.claim em {
     color: #8000d1;
     font-style: normal;
+}
+.download-para {
+    text-align: center;
+}
+.download-para #download-link {
+    margin-left: auto;
+    margin-right: auto;
 }
 #download-link {
     text-decoration: none;
@@ -197,6 +204,9 @@ a:hover {
 }
 #footer a {
     color: #999;
+}
+#intro-wrapper {
+    text-align: center;
 }
 h2 {
     color: #5500a5;

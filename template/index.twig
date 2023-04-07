@@ -2,9 +2,13 @@
 {% set activeNav = "index" %}
 {% extends "_layout.twig" %}
 {% block body %}
-<p id="intro">Open Wii Manager is the <em>best way to manage your Wii game backups</em>!</p>
-<img id="main-screenshot" src="img/owm_screenshot2.png" alt="Screenshot of the main window of Open Wii Manager running on Windows 7 and showing a list of wii games" width="1086" height="625" />
-<p>
-    <a href="download" id="download-link">Download now</a>
-</p>
+<div id="intro-wrapper">
+    <p id="intro" class="claim">Open Wii Manager is the <em>best way to manage your Wii game backups</em>!</p>
+    <img id="main-screenshot" src="img/owm_screenshot3.png" alt="Screenshot of the main window of Open Wii Manager running on Windows 7 and showing a list of wii games" width="1086" height="625" />
+    <p class="claim">Easy to set up</p>
+    <img id="wizard-screenshot" src="img/owm_wizard.png" alt="Screenshot of the &quot;First Run&quot; wizard of Open Wii Manager running on Windows 7" width="616" height="431" />
+    <p class="claim">Powered by <a href="https://gametdb.com/" target="_blank">GameTDB</a></p>
+    <img id="details-screenshot" src="img/owm_details.png" alt="Screenshot of the details window of Open Wii Manager running on Windows 7 showing the properties of &quot;Mario Kart Wii&quot;" width="417" height="488" />
+    <p class="download-para"><a href="download" id="download-link">Download now</a></p>
+</div>
 {% endblock %}

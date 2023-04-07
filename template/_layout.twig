@@ -38,7 +38,8 @@
             You are using an older version of Internet Explorer, which this site does not support. Please
             <a href="http://www.microsoft.com/windows/internet-explorer/default.aspx">upgrade to at least Internet Explorer 8</a>
             or another browser like
-            <a href="http://www.mozilla.com/en-US/firefox/firefox.html">Mozilla Firefox</a> or
+            <a href="http://www.mozilla.com/en-US/firefox/firefox.html">Mozilla Firefox</a>,
+            <a href="http://www.apple.com/safari/download/">Apple Safari</a> or
             <a href="http://www.google.com/chrome">Google Chrome</a>.
         </div>
         <script type="text/javascript">
@@ -86,7 +87,7 @@
         <div id="footer-shadow" class="shadow"></div>
         <div class="wrapper">
             Open Wii Manager &#x2013; A project by <a href="https://jonaskohl.de/" target="_blank">Jonas Kohl</a>
-            &#x2013; Website version <a href="//github.com/jonaskohl/owm-web/tree/{{ getenv("GIT_HASH")|default("main")|url_encode }}" target="_blank">{{ getenv("GIT_HASH")|slice(0, 7)|default("main") }}</a>
+            &#x2013; Website version <a href="//github.com/jonaskohl/owm-web/tree/{{ getenv("GIT_HASH")|default("main")|url_encode }}" target="_blank">{{ getenv("GIT_HASH")|slice(0, 7)|default("<Unable to determine>") }}</a>
             <div id="footer-links">
                 <a href="//github.com/{{ getenv("REPO_AUTHOR")|url_encode }}/{{ getenv("REPO_NAME")|url_encode }}" target="_blank" id="github-link">GitHub</a>
             </div>
