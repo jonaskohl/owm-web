@@ -165,6 +165,9 @@ a:hover {
     text-align: center;
     margin: 8px 0 32px;
 }
+.claim ~ .claim {
+    margin: 32px 0 16px;
+}
 .claim em {
     color: #8000d1;
     font-style: normal;
